@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="Consultoría tecnológica Contacto">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Consultora Catherine Pérez Contacto</title>
+        <link rel="stylesheet" href="./CSS/style.css">
+        <link rel="icon" href="./IMG/favicon.ico" type="image/x-icon">
+    </head>
+
+
+    <body>
+      
+         <header> 
+            <nav> 
+                <ul>
+                    <li><img class="logo" alt="imagen del logo" src="./IMG/Logo.png" type="image/png"></li> <!--Logo realizado con Canva-->
+                    <li> <a href="index.html">Índice</a></li>
+                    <li> <a href="cronologia.html">Cronología</a></li>
+                    <li> <a href="proyecto-estrella.html">Proyecto Reservas</a></li>
+                    <li> <a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <main>
+           <div class="main-card">
+                <section class="card">
+                    <div class="card-title">
+                        <h1>Contacta con nosotros</h1>
+                    </div>
+                    <div class="card-body">
+                        <form action="morning-paper-a0fc.contry-1990.workers.dev" method="post">
+                        
+                            <div class="container">
+                                <label class="elemento" for="nombre">Nombre: </label>
+                                <input class="elemento" type="text" id="nombre" name="nombre" required pattern="\p{L}+">
+
+                                <label class="elemento" for="email">Correo Electrónico: </label>
+                                <input class="elemento" type="email" id="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                                
+                                <label class="elemento" for="motivo"> Selecciona el motivo de la consulta: </label>
+                                <select class="elemento" id="motivo" name="motivo" required>
+                                    <option value="">--Seleccione una opción--</option>
+                                    <option>Desarollo Software y Aplicacones</option>
+                                    <option>Ciberseguridad</option>
+                                    <option>Datos y Analítica</option>
+                                </select>
+                                
+                                <label class="elemento" for="consulta">¿Algo más que deberíamos saber sobre su consulta?</label>
+                                <textarea class="elemento" id="consulta" name="consulta" minlength="10"></textarea>
+
+                                <label class="elemento" for="privacidad">Acepto la política de privacidad: </label>
+                                <input id="checkbox" class="elemento" type="checkbox" name="privacidad" required>
+
+                                <button class="button" type="submit"> Enviar</button>  
+                            </div>
+                                            
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <div>
+            <p>© 2025 Consultora Catherine Pérez. Todos los derechos reservados.</p>
+
+            <div>
+            <a href="https://www.facebook.com" target="_blank">Facebook</a>
+            <a href="https://www.twitter.com" target="_blank">Twitter</a>
+            <a href="https://www.instagram.com" target="_blank">Instagram</a>
+            </div>
+
+                <div>
+                    <a href="aviso-legal.html">Aviso Legal</a>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
