@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catherine Pérez - Swagger UI</title>
+  <link rel="stylesheet" type="text/css" href="./swagger-ui-dist/swagger-ui.css" />
+  <link rel="icon" type="image/png" href="./swagger-ui-dist/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="./swagger-ui-dist/favicon-16x16.png" sizes="16x16" />
+  <style>
+    html
+    {
+      box-sizing: border-box;
+      overflow: -moz-scrollbars-vertical;
+      overflow-y: scroll;
+    }
+    *,
+    *:before,
+    *:after
+    {
+      box-sizing: inherit;
+    }
+
+    body
+    {
+      margin:0;
+      background: #fafafa;
+    }
+  </style>
+</head>
+<body>
+<div id="swagger-ui"></div>
+
+<script src="./swagger-ui-dist/swagger-ui-bundle.js" charset="UTF-8"> </script>
+<script src="./swagger-ui-dist/swagger-ui-standalone-preset.js" charset="UTF-8"> </script>
+<script>
+  window.onload = function() {
+    // Begin Swagger UI call region
+    const ui = SwaggerUIBundle({
+      spec: {
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API de Gestión de Reserva de Libros",
+    "version": "1.0.0",
+    "description": "API simple para gestionar una empresa de alquiler de libros"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1",
+      "description": "Servidor local de desarrollo"
+    }
+  ],
+  "paths": {
+    "/reserva": {
+      "get": {
+        "summary": "Listar todas las reservas",
+        "description": "Obtiene un array con todas las reservas del usuario",
+        "responses": {
+          "200": {
+            "description": "Lista de reservas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Reserva"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva reserva",
+        "description": "Añade una nueva reserva",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReservaInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Reserva creada"
+          },
+          "404": {
+            "description": "El servidor no puede encontrar el contenido solicitado"
+          }
+        }
+      }
+    },
+    "/reserva/{ID_Rreserva}": {
+      "patch": {
+        "summary": "Actualizar estado de una reserva",
+        "description": "Marca una reserva como completada o pendiente",
+        "parameters": [
+          {
+            "name": "ID_Rreserva",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "completada": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "La actualización ha tenido éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reserva"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Reserva no encontrada"
+          },
+          "503": {
+            "description": "Servicio no disponible"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una reserva",
+        "description": "Elimina permanentemente una reserva",
+        "parameters": [
+          {
+            "name": "ID_Rreserva",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Reserva eliminada exitosamente"
+          },
+          "403": {
+            "description": "No tienes permisos para eliminar esta reserva"
+          },
+          "418": {
+            "description": "I'm a teapot"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Reserva": {
+        "type": "object",
+        "required": [
+          "ID_Rreserva",
+          "ISBN",
+          "Estado_Libro_Inicio"
+        ],
+        "properties": {
+          "ID_Rreserva": {
+            "type": "integer",
+            "example": 564
+          },
+          "ISBN": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 13,
+            "example": "978-1-4028-9462-6"
+          },
+          "Estado_Libro_Inicio": {
+            "type": "string",
+            "example": "rasguño en la portada y pequeñas marcas en algunas páginas"
+          }
+        }
+      },
+      "ReservaInput": {
+        "type": "object",
+        "required": [
+          "titulo"
+        ],
+        "properties": {
+          "titulo": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "example": 404
+          },
+          "errorType": {
+            "type": "string",
+            "example": "BadRequest"
+          },
+          "message": {
+            "type": "string",
+            "example": "Recurso no encontrado"
+          }
+        }
+      }
+    }
+  }
+}, // Path to your OpenAPI YAML file
+      dom_id: '#swagger-ui',
+      deepLinking: true,
+      presets: [
+        SwaggerUIBundle.presets.apis,
+        SwaggerUIStandalonePreset
+      ],
+      plugins: [
+        SwaggerUIBundle.plugins.DownloadUrl
+      ],
+      layout: "StandaloneLayout"
+    });
+    // End Swagger UI call region
+
+    window.ui = ui;
+  };
+</script>
+</body>
+</html>
