@@ -114,4 +114,4 @@
 }
 ```
 </pre>
-<![[Pasted image 20260302200127.png](/imagenes/Pasted%20image%2020260302200012.png)]>
+![Captura de pantalla de la documentación de Swagger UI](imagenes/DocumentacionSwaggerUI.png)

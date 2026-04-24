@@ -3,23 +3,34 @@ package Controller;
 import DB.UsuarioDAO;
 import Model.Usuario;
 import View.UsuarioView;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Controlador encargado de gestionar las operaciones relacionadas con los usuarios.
+ * Actúa como intermediario entre la vista (UsuarioView) y el acceso a datos (UsuarioDAO).
+ */
 public class UsuarioController {
 
     private final UsuarioView usuarioView;
     private final UsuarioDAO usuarioDAO;
 
-    // Constructor que crea el controlador con sus dependencias
+    /**
+     * Constructor que inicializa el controlador con sus dependencias.
+     *
+     * @throws SQLException si ocurre un error al obtener la instancia del DAO
+     */
     public UsuarioController () throws SQLException {
         this.usuarioDAO = UsuarioDAO.getInstance();
         this.usuarioView = new UsuarioView();
     }
 
-    // Lanza el menú que gestiona los usuarios
+    /**
+     * Inicia el menú principal de gestión de usuarios.
+     *
+     * @return no devuelve ningún valor. Finaliza cuando el usuario selecciona salir.
+     */
     public void iniciar (){
         Scanner sc = new Scanner(System.in);
         int opcion;
@@ -40,7 +51,11 @@ public class UsuarioController {
         while (opcion !=0);
     }
 
-    // Llama al formulario de UsuarioView y el usuario creado lo pasa a UsuarioDAO (comunica backend y "frontend")
+    /**
+     * Solicita los datos de un nuevo usuario a la vista y lo guarda en la base de datos.
+     *
+     * @return no devuelve ningún valor.
+     */
     private void altaUsuario (){
         try {
             usuarioDAO.crearUsuario(usuarioView.formularioUsuario());
@@ -50,7 +65,12 @@ public class UsuarioController {
             System.out.println(e.getMessage());
         }
     }
-    // Función que muestra el menú de consultas y ejecuta cada una de las acciones en función del input
+
+    /**
+     * Muestra el menú de consultas de usuarios y ejecuta la opción seleccionada.
+     *
+     * @return no devuelve ningún valor.
+     */
     private void consultaUsuario (){
         Scanner sc = new Scanner(System.in);
         int opcion;
@@ -113,7 +133,12 @@ public class UsuarioController {
         }
         while (opcion != 0);
     }
-    // Función que actualiza los campos de usuario
+
+    /**
+     * Permite actualizar los datos de un usuario existente.
+     *
+     * @return no devuelve ningún valor.
+     */
     private void actualizarUsuario () {
         Scanner sc = new Scanner(System.in);
         Usuario usuario = null;
@@ -184,7 +209,12 @@ public class UsuarioController {
         }
         while (opcion != 0);
     }
-    // Función que elimina usuario dada una id
+
+    /**
+     * Elimina un usuario de la base de datos a partir de su identificador.
+     *
+     * @return no devuelve ningún valor.
+     */
     private void borrarUsuario () {
         try {
             if ( usuarioDAO.eliminarUsuario(usuarioView.pedirId())) {

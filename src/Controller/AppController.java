@@ -3,16 +3,29 @@ package Controller;
 import DB.DBConnection;
 import java.util.Scanner;
 
+/**
+ * Controlador principal de la aplicación.
+ * Gestiona el menú inicial y la navegación hacia otros controladores.
+ */
 public class AppController {
 
     private UsuarioController usuarioController;
 
+    /**
+     * Muestra el menú inicial por consola.
+     */
     private void mostrarMenuInicial (){
         System.out.println("-- MENÚ INICIAL --");
         System.out.println("0. Salir.");
         System.out.println("1. Gestionar usuario.");
     }
 
+    /**
+     * Inicia la aplicación mostrando el menú principal y gestionando la navegación.
+     * También se encarga de cerrar la conexión a la base de datos al finalizar.
+     *
+     * @return no devuelve ningún valor. Finaliza cuando el usuario selecciona salir.
+     */
     public void menuInicial () {
         Scanner sc = new Scanner(System.in);
         int opcion;
